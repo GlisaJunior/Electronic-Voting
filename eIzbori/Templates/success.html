@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>CSV Upload Successful!</h2>
+
+<script>
+    setTimeout(function() {
+        window.location.href = '/Process/Commission/';
+    }, {{ redirect_delay }});
+</script>
+
+{% endblock %}

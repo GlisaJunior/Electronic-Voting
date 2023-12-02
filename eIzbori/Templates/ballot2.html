@@ -1,0 +1,30 @@
+{% extends 'voting.html' %}
+
+{% comment %} {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            {% if message.tags == 'warning' %}
+                <li class="warning">{{ message }}</li>
+            {% else %}
+                <li>{{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %} {% endcomment %}
+
+{% block ballot  %}
+
+<form method = "POST">
+
+    {% csrf_token %}
+    {% for votee,votes in votees.items %}
+
+        <input type = "checkbox" value = "{{ votee.id }}" name = "checkbox number {{forloop.counter}}"> {{votee.first_name}} {{votee.last_name}}
+        <br>
+
+    {% endfor %}
+
+    <button type = "submit"> Submit </button>
+</form>
+
+{% endblock  %}

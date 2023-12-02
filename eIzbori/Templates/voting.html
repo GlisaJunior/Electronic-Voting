@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+name: {{ currentuser.name}}
+licence number: {{currentuser.licence}}
+ballot id: {{ key }}
+local center:{{currentuser.local_center}}
+
+{% block ballot %}
+{% endblock %}
+
+{% endblock %}
+

@@ -1,0 +1,60 @@
+{% extends 'voting.html' %}
+{% block ballot  %}
+
+{% comment %} {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            {% if message.tags == 'warning' %}
+                <li class="warning">{{ message }}</li>
+            {% else %}
+                <li>{{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %} {% endcomment %}
+
+<form method = "POST">
+
+    {% csrf_token %}
+    {% for votee,voteeinfo in votees.items %}
+
+        <input type = "checkbox" value = "{{ voteeinfo.id }}" name = "checkbox number {{forloop.counter}}" class = "checkbox"> {{voteeinfo.name}}
+        <br>
+
+    {% endfor %}
+
+    <input type = "button"  onclick = "countChecked()" value = "Confirm submission">
+    <button type = "submit" class = "hidden" id = "submitbutton" >Submit</button>
+
+</form>
+<script>
+
+function countChecked(){
+
+    var checkboxes = document.getElementsByClassName("checkbox");
+    var checkedCount = 0;
+
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        checkedCount++;
+      }
+    }
+    if (checkedCount > 5) {
+
+        window.alert("Please select 5 or less candidates.")
+
+    }
+    else {
+
+        var button = document.getElementById("submitbutton")
+        button.className = ""
+
+    }
+
+
+}
+
+
+</script>
+{% endblock  %}
+

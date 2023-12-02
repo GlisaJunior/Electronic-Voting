@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table>
+
+{% for region,local in votes.items %}
+
+<tr>
+    <th> {{region.name}} </th>
+
+
+    {% for local,user in local.items %}
+    
+    <th> {{local.name}} </th>
+
+    {% for user,value in user.items %}
+    
+    <td>
+        {{user.first_name}} {{user.last_name}} : {{value}}
+    </td>
+
+    {% endfor %}
+    
+    {% endfor %}
+</tr>
+
+
+
+
+{% endfor %}
+
+</table>
+
+<form method = "POST">
+    {% csrf_token %}
+    <select name = "election">
+    {% for item in elections  %}
+
+    <option value = {{item.id}} name ="elections">{{item.name_of_election}}</option>
+    
+    {% endfor %}
+    </select>
+    <button type = "submit"> Select Election </button>
+</form>
+
+<form method = "POST">
+    {% csrf_token %}
+{% if latestelection.Phase == 2 %}
+
+<input type = "text" name = "name_of_election"></input>
+
+{% endif %}
+
+<input type="hidden" value = "advance" name = "advance">
+
+<button type = "submit"> 
+
+{% if latestelection.Phase == 2  %}
+
+Create new election
+
+{% else %}
+
+Advance election process
+
+{% endif %}
+    
+
+</button>
+<br><br>
+
+<a href="{% url 'upload_csv' %}">Upload CSV</a>
+
+{% endblock content %}
+
