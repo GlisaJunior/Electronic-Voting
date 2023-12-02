@@ -1,1 +1,1 @@
-# eIzbori-repo
+# Application for electronic voting
